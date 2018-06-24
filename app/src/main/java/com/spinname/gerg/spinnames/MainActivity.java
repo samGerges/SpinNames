@@ -13,12 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        NfcAdapter nfc = NfcAdapter.getDefaultAdapter(this);
-        if (nfc!=null && nfc.isEnabled()){
-            Toast.makeText(this, "enabled",Toast.LENGTH_LONG).show();
-        }else {
-            finish();
-        }
+
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.spinname.gerg.spinnames;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,30 +20,40 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<String> players = new ArrayList<String>();
-
-
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final ArrayList<String> players = new ArrayList<String>();
+        final int prev = 0;
 
-
-        Button addButton = findViewById(R.id.addButton);
-        Button playButton = findViewById(R.id.playButton);
-        Button clearButton = findViewById(R.id.clearButton);
+        final Button addButton = findViewById(R.id.addButton);
+        final Button playButton = findViewById(R.id.playButton);
+        final Button clearButton = findViewById(R.id.clearButton);
 
 
         final EditText namesField = findViewById(R.id.namesField);
 
-        playButton.setText("Pick Name");
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final AlertDialog.Builder chosen = new AlertDialog.Builder(this);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                players.add(namesField.getText().toString());
-                namesField.setText("");
-                initRecyclerView();
+                String name = String.valueOf(namesField.getText());
+                if (!name.equals("")){
+                    players.add(namesField.getText().toString());
+                    namesField.setText("");
+                    initRecyclerView(players);
+                }else {
+                    alert.setTitle("Something Went Wrong")
+                            .setMessage("Enter a name to be added to the list ;)")
+                            .setPositiveButton("Got It!", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                    alert.show();
+                }
             }
         });
 
@@ -49,12 +61,44 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 players.clear();
-                initRecyclerView();
+                initRecyclerView(players);
+            }
+        });
+
+        playButton.setText("Pick Name");
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spin(players, chosen, prev);
             }
         });
     }
+    private void spin(final ArrayList<String> players, final AlertDialog.Builder chosen, int prev){
+        int current;
+        do{
+            current = (int) Math.round(Math.random()*((players.size())-1));
+        }while (current == prev);
+        prev = current;
+        final int finalPrev = prev;
+        chosen.setTitle("Lucky Name")
+                .setMessage(players.get(current))
+                .setPositiveButton("Ready for a new Pick!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        spin(players, chosen, finalPrev);
+                    }
+                })
+                .setNegativeButton("Quit :(", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-    private void initRecyclerView(){
+                    }
+                })
+                .show();
+
+    }
+
+    private void initRecyclerView(ArrayList<String> players){
         RecyclerView recyclerView = findViewById(R.id.namesList);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(players, this);
         recyclerView.setAdapter(adapter);

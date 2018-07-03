@@ -7,75 +7,40 @@
     android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/namesField"
-        android:layout_width="176dp"
-        android:layout_height="69dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:textColor="#FFF"
-        android:textSize="18pt"
-        android:theme="@android:style/TextAppearance.Material.Body1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="380dp"
+        android:layout_height="392dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="ADD"
-        app:layout_constraintBottom_toTopOf="@+id/namesList"
-        app:layout_constraintEnd_toStartOf="@+id/clearButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/namesField"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
-
-    <Button
-        android:id="@+id/clearButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Clear"
-        app:layout_constraintBottom_toTopOf="@+id/namesList"
+        android:layout_marginTop="88dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.934"
-        app:layout_constraintStart_toEndOf="@+id/namesField"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        app:srcCompat="@drawable/spin_names" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/namesList"
-        android:layout_width="395dp"
-        android:layout_height="573dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/aldrich"
+        android:lineSpacingExtra="8sp"
+        android:text="Spin Names"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="70sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namesField"
-        app:layout_constraintVertical_bias="0.928" />
-
-    <Button
-        android:id="@+id/playButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namesList" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.187" />
 </android.support.constraint.ConstraintLayout>

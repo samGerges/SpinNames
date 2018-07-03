@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +18,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<String> names = new ArrayList<String>();
     private Context context;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onDeleteClick(int position);
+    }
+    public void onItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
     public RecyclerViewAdapter(ArrayList<String> names, Context context) {
         this.names = names;
@@ -43,12 +53,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameView;
         ConstraintLayout parentLayout;
+        ImageView deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            deleteButton = itemView.findViewById(R.id.removeButton);
             nameView = itemView.findViewById(R.id.nameView);
             parentLayout = itemView.findViewById(R.id.parentlayout);
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            mListener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 

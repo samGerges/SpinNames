@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SpinNames</string>
+    <string name="name">Name</string>
+    <string name="add">ADD</string>
+    <string name="clear">Clear</string>
+    <string name="pick_name">Pick Name</string>
 </resources>

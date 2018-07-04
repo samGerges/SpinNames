@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
-    private ArrayList<String> names = new ArrayList<String>();
+    private ArrayList<String> names;
     private Context context;
     private OnItemClickListener mListener;
 
@@ -27,21 +27,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mListener = listener;
     }
 
-    public RecyclerViewAdapter(ArrayList<String> names, Context context) {
+    public void removeItem(int position){
+        names.remove(position);
+    }
+
+    RecyclerViewAdapter(ArrayList<String> names, Context context) {
         this.names = names;
         this.context = context;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.names_layout, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.nameView.setText(names.get(position));
     }
 
@@ -50,12 +54,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return names.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameView;
         ConstraintLayout parentLayout;
         ImageView deleteButton;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             deleteButton = itemView.findViewById(R.id.removeButton);

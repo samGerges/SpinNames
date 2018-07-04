@@ -11,10 +11,10 @@
         android:id="@+id/namesField"
         android:layout_width="176dp"
         android:layout_height="69dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/name"
         android:inputType="textPersonName"
         android:textColor="#FFF"
         android:textSize="18pt"
@@ -30,8 +30,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="ADD"
-        app:layout_constraintBottom_toTopOf="@+id/namesList"
+        android:text="@string/add"
+        app:layout_constraintBottom_toTopOf="@+id/nameList"
         app:layout_constraintEnd_toStartOf="@+id/clearButton"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/namesField"
@@ -46,8 +46,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Clear"
-        app:layout_constraintBottom_toTopOf="@+id/namesList"
+        android:text="@string/clear"
+        app:layout_constraintBottom_toTopOf="@+id/nameList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toEndOf="@+id/namesField"
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.38" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/namesList"
+        android:id="@+id/nameList"
         android:layout_width="395dp"
         android:layout_height="573dp"
         android:layout_marginBottom="8dp"
@@ -77,5 +77,6 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namesList" />
+        app:layout_constraintTop_toBottomOf="@+id/nameList"
+        android:text="@string/pick_name"/>
 </android.support.constraint.ConstraintLayout>

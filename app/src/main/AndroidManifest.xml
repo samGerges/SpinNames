@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.spinname.gerg.spinnames">
 
-    <uses-sdk android:minSdkVersion="10"
+    <uses-sdk
+        android:minSdkVersion="10"
         tools:ignore="GradleOverrides" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,6 +13,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/spin_names_icon"
         android:label="Spin Names"
         android:roundIcon="@mipmap/spin_names_icon"
@@ -26,13 +28,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity">
-
-        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".playedActivity"></activity>
     </application>
 
 </manifest>

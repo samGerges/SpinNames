@@ -19,6 +19,8 @@ public class HomeActivity extends AppCompatActivity {
     Button addButton;
     Button playButton;
     Button clearButton;
+    String temp = "";
+    String temp2 = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,29 +100,49 @@ public class HomeActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spin(players, chosen, prev);
+                spin(players, chosen);
             }
         });
         buttonConfig();
 
     }
 
-    private void spin(final ArrayList<String> players, final AlertDialog.Builder chosen, int prev){
-        int current;
-        do{
-            current = (int) Math.round(Math.random()*((players.size())-1));
-        }while (current == prev);
-        prev = current;
-        final int finalPrev = prev;
+    private void spin(final ArrayList<String> playerSpin, final AlertDialog.Builder chosen){
+        int fName;
+        int sName;
+
+        final ArrayList<String> players2 = new ArrayList<>(playerSpin);
+
+        do {
+            fName = (int) Math.round(Math.random()*((players2.size())-1));
+            System.out.println("first loop ");
+        }while (players2.get(fName).equals(temp));
+
+        do {
+            sName = (int) Math.round(Math.random()*((players2.size())-1));
+        }while (fName == sName);
+
+        temp = players2.get(fName);
+        temp2 = players2.get(sName);
+
+        System.out.println(players2.size() + "\n" +fName + "\n"+ sName);
+
+        players2.remove(fName);
+        System.out.println(players2.size());
+
         chosen.setTitle("Lucky Name")
-                .setMessage(players.get(current))
+                .setMessage(temp + " is going to ask " + temp2)
                 .setPositiveButton("Ready for a new Pick!", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            spin(players, chosen, finalPrev);
+                            if (players2.size() > 2){
+                                spin(players2, chosen);
+                            }else{
+                                spin(players,chosen);
+                            }
                         }
                 })
-                .setNegativeButton("Quit :(", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

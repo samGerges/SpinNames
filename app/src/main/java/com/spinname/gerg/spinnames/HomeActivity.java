@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,8 +21,10 @@ public class HomeActivity extends AppCompatActivity {
     Button addButton;
     Button playButton;
     Button clearButton;
+    Button clearListButton;
     String temp = "";
     String temp2 = "";
+    EditText namesField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +34,27 @@ public class HomeActivity extends AppCompatActivity {
         addButton = findViewById(R.id.addButton);
         playButton = findViewById(R.id.playButton);
         clearButton = findViewById(R.id.clearButton);
+        clearListButton = findViewById(R.id.clearListButton);
 
-        final int prev = 0;
+        namesField = findViewById(R.id.namesField);
 
-        final EditText namesField = findViewById(R.id.namesField);
+        clearButton.setEnabled(false);
+
+        namesField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                clearButton.setEnabled(!namesField.getText().toString().isEmpty());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                clearButton.setEnabled(!namesField.getText().toString().isEmpty());
+            }
+        });
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
         final AlertDialog.Builder chosen = new AlertDialog.Builder(this);
@@ -88,11 +109,18 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        clearButton.setOnClickListener(new View.OnClickListener() {
+        clearListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 players.clear();
                 initRecyclerView(players);
+                buttonConfig();
+            }
+        });
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                namesField.setText("");
                 buttonConfig();
             }
         });
@@ -167,10 +195,10 @@ public class HomeActivity extends AppCompatActivity {
     private void buttonConfig(){
         if(players.isEmpty()){
             playButton.setEnabled(false);
-            clearButton.setEnabled(false);
+            clearListButton.setEnabled(false);
         }else if(players.size() <= 2) {
             playButton.setEnabled(false);
-            clearButton.setEnabled(true);
+            clearListButton.setEnabled(true);
         }else {
             playButton.setEnabled(true);
         }

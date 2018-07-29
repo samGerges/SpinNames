@@ -30,13 +30,15 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".playedActivity"></activity>
+        <activity
+            android:name=".playedActivity"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>

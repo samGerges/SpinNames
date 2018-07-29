@@ -1,6 +1,7 @@
 package com.spinname.gerg.spinnames;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +23,6 @@ public class HomeActivity extends AppCompatActivity {
     Button playButton;
     Button clearButton;
     Button clearListButton;
-    String temp = "";
-    String temp2 = "";
     EditText namesField;
 
     @Override
@@ -57,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        final AlertDialog.Builder chosen = new AlertDialog.Builder(this);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,55 +126,12 @@ public class HomeActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spin(players, chosen);
+                Intent playedAct = new Intent(HomeActivity.this, playedActivity.class);
+                playedAct.putStringArrayListExtra("original", players);
+                startActivity(playedAct);
             }
         });
         buttonConfig();
-
-    }
-
-    private void spin(final ArrayList<String> playerSpin, final AlertDialog.Builder chosen){
-        int fName;
-        int sName;
-
-        final ArrayList<String> players2 = new ArrayList<>(playerSpin);
-
-        do {
-            fName = (int) Math.round(Math.random()*((players2.size())-1));
-            System.out.println("first loop ");
-        }while (players2.get(fName).equals(temp));
-
-        do {
-            sName = (int) Math.round(Math.random()*((players2.size())-1));
-        }while (fName == sName);
-
-        temp = players2.get(fName);
-        temp2 = players2.get(sName);
-
-        System.out.println(players2.size() + "\n" +fName + "\n"+ sName);
-
-        players2.remove(fName);
-        System.out.println(players2.size());
-
-        chosen.setTitle("Lucky Name")
-                .setMessage(temp + " is going to ask " + temp2)
-                .setPositiveButton("Ready for a new Pick!", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (players2.size() > 2){
-                                spin(players2, chosen);
-                            }else{
-                                spin(players,chosen);
-                            }
-                        }
-                })
-                .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .show();
 
     }
     private void initRecyclerView(final ArrayList<String> players){

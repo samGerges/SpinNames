@@ -12,8 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +27,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        int SPLASH_TIMEOUT = 3000;
+        int SPLASH_TIMEOUT = 4000;
+        Animation animate = AnimationUtils.loadAnimation(this,R.anim.scaling2);
+        TextView nameText = findViewById(R.id.spinNamesText);
+        ImageView logo = findViewById(R.id.logo);
+
+        logo.startAnimation(animate);
+        nameText.startAnimation(animate);
 
         new Handler().postDelayed(new Runnable() {
             @Override

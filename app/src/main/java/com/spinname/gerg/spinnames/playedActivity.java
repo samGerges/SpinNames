@@ -1,9 +1,12 @@
 package com.spinname.gerg.spinnames;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,39 +17,54 @@ public class playedActivity extends AppCompatActivity {
     TextView firstP;
     TextView secondP;
     Button anotherPick;
+    TextView asks;
     ArrayList<String> original;
     ArrayList<String> firstList;
     ArrayList<String> secondList;
-    Boolean fEmpty = false;
-    Boolean sEmpty = false;
+    Animation scaleAnimate;
+    Animation fadeAnimate;
+    int SPLASH_TIMEOUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_played);
 
+        scaleAnimate = AnimationUtils.loadAnimation(this,R.anim.scaling);
+        fadeAnimate = AnimationUtils.loadAnimation(this,R.anim.fading);
         firstP = findViewById(R.id.firstP);
-        firstP.setText("A");
         secondP = findViewById(R.id.secondP);
-        secondP.setText("B");
+        asks = findViewById(R.id.asks);
         anotherPick = findViewById(R.id.anotherPick);
 
         Intent intent = getIntent();
 
         original = intent.getStringArrayListExtra("original");
+        asks.startAnimation(scaleAnimate);
+        firstP.startAnimation(fadeAnimate);
+        secondP.startAnimation(fadeAnimate);
         spin(original, original);
         anotherPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(firstList.size() <2 && secondList.size() <2){
-                    spin(original, original);
-                }else if(firstList.size() <2){
-                    spin(original,secondList);
-                }else if(secondList.size() <2){
-                    spin(firstList, original);
-                }else{
-                    spin(firstList, secondList);
-                }
+
+                asks.startAnimation(scaleAnimate);
+                firstP.startAnimation(fadeAnimate);
+                secondP.startAnimation(fadeAnimate);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(firstList.size() <2 && secondList.size() <2){
+                            spin(original, original);
+                        }else if(firstList.size() <2){
+                            spin(original,secondList);
+                        }else if(secondList.size() <2){
+                            spin(firstList, original);
+                        }else{
+                            spin(firstList, secondList);
+                        }
+                    }
+                }, SPLASH_TIMEOUT);
             }
         });
 
@@ -68,21 +86,20 @@ public class playedActivity extends AppCompatActivity {
         } while (firstPlayer.get(fName).equals(temp));
         do {
             sName = (int) Math.round(Math.random() * ((secondPlayer.size()) - 1));
-            System.out.println("first loop ");
-        } while (secondPlayer.get(sName).equals(temp2) || fName == sName);
+            System.out.println("second loop ");
+        } while (secondPlayer.get(sName).equals(temp2) || secondPlayer.get(sName).equals(firstPlayer.get(fName)));
 
         temp = firstPlayer.get(fName);
         temp2 = secondPlayer.get(sName);
 
+
         firstP.setText(temp);
         secondP.setText(temp2);
 
-        System.out.println(firstPlayer.size() + "\n" + fName + "\n" + sName + "\n" + secondPlayer.size());
+        System.out.println(firstPlayer.size() + "\n" + temp + "\n" + temp2 + "\n" + secondPlayer.size());
 
         firstPlayer.remove(fName);
         secondPlayer.remove(sName);
-        System.out.println(firstPlayer.size());
-        System.out.println(secondPlayer.size());
 
         firstList = new ArrayList<>(firstPlayer);
         secondList = new ArrayList<>(secondPlayer);

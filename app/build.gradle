@@ -1,25 +1,37 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        SpinNames {
+            keyAlias 'samKey'
+            keyPassword 'Samuelgerges7'
+            storeFile file('C:/Drive/Finished App/android.jks')
+            storePassword 'Samuelgerges7'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.spinname.gerg.spinnames"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.SpinNames
+        }
+        debug {
+            signingConfig signingConfigs.SpinNames
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'

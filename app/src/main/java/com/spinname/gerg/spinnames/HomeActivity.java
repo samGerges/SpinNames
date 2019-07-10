@@ -60,8 +60,19 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = String.valueOf(namesField.getText());
-                Boolean exist = false;
-                if (!name.equals("")){
+                boolean exist = false;
+
+                if(name.startsWith(" ")){
+                    alert.setTitle("Something Went Wrong")
+                            .setMessage("Type a name to be added to the list, and make sure no spaces in the beginning.")
+                            .setPositiveButton("Got It!", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                    alert.show();
+                }
+                else if (!name.equals("")){
                     for (int i=0; i<players.size();i++){
                         if(name.equalsIgnoreCase(players.get(i))){
                             exist = true;
@@ -93,7 +104,8 @@ public class HomeActivity extends AppCompatActivity {
                         initRecyclerView(players);
                     }
 
-                }else {
+                }
+                else {
                     alert.setTitle("Something Went Wrong")
                             .setMessage("Type a name to be added to the list ;)")
                             .setPositiveButton("Got It!", new DialogInterface.OnClickListener() {

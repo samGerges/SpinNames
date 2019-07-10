@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+
     signingConfigs {
         SpinNames {
             keyAlias 'samKey'
             keyPassword 'Samuelgerges7'
-            storeFile file('C:/Drive/Finished App/android.jks')
+            storeFile file('C:\\Users\\samue\\OneDrive\\Finished App\\android.jks')
             storePassword 'Samuelgerges7'
         }
     }

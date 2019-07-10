@@ -4,7 +4,6 @@
     package="com.spinname.gerg.spinnames">
 
     <uses-sdk
-        android:minSdkVersion="10"
         tools:ignore="GradleOverrides" />
 
     <application
